@@ -77,7 +77,7 @@ class ScreenController {
             boardDiv.textContent = "";
         
             // get the newest version of the board and player turn
-            const board = this.game.board;
+            const board = this.game.gameBoard.board;
             const activePlayer = this.game.getActivePlayer();
         
             // Display player's turn
@@ -92,8 +92,8 @@ class ScreenController {
                 // Create a data attribute to identify the column
                 // This makes it easier to pass into our `playRound` function 
                 cellButton.dataset.column = index
-                cellButton.textContent = cell.getValue();
-                this.boardDiv.appendChild(cellButton);
+                cellButton.textContent = cell.val;
+                boardDiv.appendChild(cellButton);
               })
             })
           }
