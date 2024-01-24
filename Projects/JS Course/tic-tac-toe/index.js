@@ -53,14 +53,15 @@ class Gameboard{
             // Calculate row and column based on idx
             const row = Math.floor((idx - 1) / 3);
             const column = (idx - 1) % 3;
-    
+            console.log("tile Clicked Value: " + this.board[row][column].val)
             // Check if the cell is already occupied
-            if (!isNaN(this.board[row][column].val)) {
+            if (!isNaN(this.board[row][column].val) || 
+            this.board[row][column].val == "X" || this.board[row][column].val == "O" ) {
                 alert("Tile already occupied");
                 return;
             }
             
-    
+            
             // Update the value of the cell
             this.board[row][column].val = player;
         };
