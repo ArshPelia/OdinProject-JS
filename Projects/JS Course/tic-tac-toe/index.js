@@ -12,7 +12,7 @@ class Player {
 
 class Cell{
     constructor(){
-        this.val = 0
+        this.val = NaN
         this.occupiedBy = NaN
     }
     get val(){
@@ -49,6 +49,21 @@ class Gameboard{
             const boardWithCellValues = this.board.map((row) => row.map((cell) => cell.val))
             console.log(boardWithCellValues);
         };
+        this.dropToken = (idx, player) => {
+            // Calculate row and column based on idx
+            const row = Math.floor((idx - 1) / 3);
+            const column = (idx - 1) % 3;
+    
+            // Check if the cell is already occupied
+            if (!isNaN(this.board[row][column].val)) {
+                alert("Tile already occupied");
+                return;
+            }
+            
+    
+            // Update the value of the cell
+            this.board[row][column].val = player;
+        };
     }
 }
 
@@ -62,7 +77,18 @@ class Game {
             this.activePlayer = this.activePlayer === this.p1 ? this.p2 : this.p1;
           };
         this.getActivePlayer = () => this.activePlayer;
-
+        this.playRound = (idx) => {
+            console.log(
+              `Dropping ${this.getActivePlayer().name}'s token into index: ${idx}...`
+            );
+            this.gameBoard.dropToken(idx, this.getActivePlayer().marker);
+        
+            /*  This is where we would check for a winner and handle that logic,
+                such as a win message. */
+        
+            this.switchPlayerTurn();
+            // printNewRound();
+          };
         
     }
 }
@@ -82,26 +108,44 @@ class ScreenController {
         
             // Display player's turn
             this.playerTurnDiv.textContent = `${activePlayer.name}'s turn...`
-        
+            var idx = 0
             // Render board squares
             board.forEach(row => {
               row.forEach((cell, index) => {
+                idx++
+                // console.log(idx)
                 // Anything clickable should be a button!!
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
                 // Create a data attribute to identify the column
                 // This makes it easier to pass into our `playRound` function 
                 cellButton.dataset.column = index
-                cellButton.textContent = cell.val;
+                cellButton.dataset.idx = idx
+                cellButton.textContent = cell.val + "-" + idx;
+                // cellButton.textContent = idx;
                 boardDiv.appendChild(cellButton);
               })
             })
           }
+            // Add event listener for the board
+        const clickHandlerBoard = (e) => {
+            const selectedIdx = e.target.dataset.idx;
+            console.log("Tile: "+ selectedIdx + " clicked!");
+            
+            // Make sure I've clicked a column and not the gaps in between
+            if (!selectedIdx) return;
+
+            this.game.playRound(selectedIdx);
+            this.updateScreen();
+        };
+            boardDiv.addEventListener("click", clickHandlerBoard);
+
+        this.updateScreen()
+
     }
+    
 
 }
 
-start = new ScreenController()
-// start.game.gameBoard.printBoardtoConsole()
-start.updateScreen()
+screen = new ScreenController()
 console.log("End of Script")
