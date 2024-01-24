@@ -58,7 +58,7 @@ class Gameboard{
             if (!isNaN(this.board[row][column].val) || 
             this.board[row][column].val == "X" || this.board[row][column].val == "O" ) {
                 alert("Tile already occupied");
-                return;
+                return -1;
             }
             
             
@@ -82,7 +82,9 @@ class Game {
             console.log(
               `Dropping ${this.getActivePlayer().name}'s token into index: ${idx}...`
             );
-            this.gameBoard.dropToken(idx, this.getActivePlayer().marker);
+            if (this.gameBoard.dropToken(idx, this.getActivePlayer().marker) == -1){
+                return
+            };
         
             /*  This is where we would check for a winner and handle that logic,
                 such as a win message. */
