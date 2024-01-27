@@ -1,4 +1,7 @@
 class Ship{
+    //init coordinates
+    x;
+    y;
     constructor(){
         //random length for ship
         this.length = Math.random() * (5 - 1) + 1;
