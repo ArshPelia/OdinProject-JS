@@ -23,6 +23,6 @@ class Ship{
         }
         return false
     }
-
-
 }
+
+export {Ship}
