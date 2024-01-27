@@ -20,18 +20,22 @@ class Gameboard {
     }
 
     populateShips(){
-        
+
     }
 }
 
 class Cell {
-    x;
-    y;
-    occupiedBy = null;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.occupiedBy = null;
+    }
 
-    // You might want to add a getValue method to the Cell class
+    occupy(ship) {
+        this.occupiedBy = ship;
+    }
+
     getValue() {
-        // Implement the logic to get the value of the cell (e.g., if it's occupied by a ship)
         return this.occupiedBy ? 'X' : '.';
     }
 }
