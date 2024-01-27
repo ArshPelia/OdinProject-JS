@@ -1,19 +1,27 @@
 class Ship{
     //init coordinates
-    x;
-    y;
-    constructor(){
+    hitsIncurred = 0
+    sunk = false
+    constructor(length, x, y, orientation){
         //random length for ship
-        this.length = Math.random() * (5 - 1) + 1;
-        this.hitsIncurred = 0
-        this.sunk = 0
+        // this.length = Math.random() * (5 - 1) + 1;
+        this.hitsIncurred = hitsIncurred
+        this.sunk = sunk
+        this.length = length
+        this.x = x
+        this.y = y 
+        this.orientation= orientation
     }
     hit() {
         this.hitsIncurred++
     }
 
     isSunk(){
-        return this.hitsIncurred == this.length
+        if(this.hitsIncurred == this.length){
+            this.sunk = true
+            return true;
+        }
+        return false
     }
 
 
