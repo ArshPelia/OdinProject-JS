@@ -26,7 +26,8 @@ class Game {
 
     playRound(idx) {
         console.log(`${this.getActivePlayer().name} is striking at: ${idx}...`);
-        if (this.inActivePlayer.gameBoard.receiveAttack(idx) == -1) {
+        if (this.inActivePlayer.gameBoard.receiveAttack(idx) == -1 ||
+            this.activePlayer.gameBoard.receiveAttack(idx) == -1) {
             return;
         }
 
@@ -39,11 +40,13 @@ class Game {
         const winner = this.checkForWinner();
         if (winner) {
             console.log(`Player ${winner.name} wins!`);
-            const boardDiv = document.querySelector('.winner');           
-                // clear the board
-            boardDiv.textContent = "";
-            boardDiv.textContent = "Winner: " + winner.name;
-            // You can handle the win condition here, e.g., display a message or restart the game.
+            const win = document.querySelector('.winner');           
+            const boardDiv = document.querySelector('.board');
+            boardDiv.remove()           
+            // clear the board
+            win.textContent = "";
+            win.textContent = "Winner: " + winner.name;
+        // You can handle the win condition here, e.g., display a message or restart the game.
         }
 
         // Switch player turns

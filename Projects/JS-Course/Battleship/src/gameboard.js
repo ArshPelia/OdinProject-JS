@@ -129,7 +129,7 @@ class Cell {
         this.y = y;
         this.ship = null;
         this.misHit = false;
-        this.value = 'E'
+        this.value = ''
     }
 
     placeShip(ship) {

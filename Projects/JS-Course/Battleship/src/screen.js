@@ -59,11 +59,10 @@ class ScreenController {
 
             this.game.playRound(selectedIdx);
             this.updateScreen();
-        };
-            boardDiv.addEventListener("click", clickHandlerBoard);
-
+          };
+            
+        boardDiv.addEventListener("click", clickHandlerBoard);
         this.updateScreen()
-
     }
     
 
