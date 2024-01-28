@@ -14,6 +14,7 @@ class Gameboard {
                 this.board[i].push(new Cell()); // Use the 'new' keyword to instantiate Cell
             }
         }
+        this.populateShips()
     }
 
     // Print board to console
