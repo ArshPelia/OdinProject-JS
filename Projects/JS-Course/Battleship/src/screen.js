@@ -10,7 +10,7 @@ class ScreenController {
             boardDiv.textContent = "";
         
             // get the newest version of the board and player turn
-            const board = this.game.gameBoard.board;
+            const board = this.game.activePlayer.gameBoard.board;
             const activePlayer = this.game.getActivePlayer();
         
             // Display player's turn

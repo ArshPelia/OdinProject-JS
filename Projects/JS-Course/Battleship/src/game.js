@@ -1,11 +1,20 @@
-import { Player } from "./ship";
 import { Gameboard } from "./gameboard"; // Make sure the path to your gameboard module is correct
+
+
+class Player {
+    constructor(name,) {
+        this.name = name;
+        this.gameBoard = new Gameboard()
+        this.sayName = function() {
+            console.log(`Hello, I'm ${this.name}!`);
+          };
+    }
+}
 
 class Game {
     constructor(){
         this.p1 = new Player("P1")
         this.p2 = new Player("P2")
-        this.gameBoard = new Gameboard()
         this.activePlayer = this.p1
         this.switchPlayerTurn = () => {
             this.activePlayer = this.activePlayer === this.p1 ? this.p2 : this.p1;
@@ -19,5 +28,6 @@ class Game {
     
       };
 }
+
 
 export {Game}
