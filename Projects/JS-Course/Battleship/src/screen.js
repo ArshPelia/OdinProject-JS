@@ -52,7 +52,7 @@ class ScreenController {
             // Add event listener for the board
         const clickHandlerBoard = (e) => {
             const selectedIdx = e.target.dataset.idx;
-            console.log("Tile: "+ selectedIdx + " clicked!");
+            // console.log("Tile: "+ selectedIdx + " clicked!");
             
             // Make sure I've clicked a column and not the gaps in between
             if (!selectedIdx) return;

@@ -2,14 +2,14 @@
 
 import { ScreenController } from "./screen"; // Make sure the path to your gameboard module is correct
 
-console.log("Script Started");
+// console.log("Script Started");
 
 const screen = new ScreenController(); // Declare g1 using 'const', and make sure Gameboard is imported correctly
 const g1 = screen.game.p1.gameBoard
 const g2 = screen.game.p2.gameBoard
 
-g1.printToConsole();
-g2.printToConsole();
+// g1.printToConsole();
+// g2.printToConsole();
 // g1.receiveAttack(1,1)
 // g1.receiveAttack(2,5)
 // g1.receiveAttack(7,3)
@@ -17,4 +17,4 @@ g2.printToConsole();
 // g1.printToConsole();
 
 
-console.log("Script Ended");
+// console.log("Script Ended");

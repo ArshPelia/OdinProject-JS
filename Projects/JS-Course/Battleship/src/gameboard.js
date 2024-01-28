@@ -2,7 +2,7 @@ import { Ship, Player } from "./ship";
 class Gameboard {
     orientations = ['v', 'h']
     constructor(player) {
-        console.log("Creating Board")
+        // console.log("Creating Board")
         this.rows = 10;
         this.cols = 10;
         this.board = [];
