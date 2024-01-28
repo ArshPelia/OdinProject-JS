@@ -5,11 +5,16 @@ class ScreenController {
         this.game = new Game()
         this.playerTurnDiv = document.querySelector('.turn');
         const boardDiv = document.querySelector('.board');
+        const p1Ships = document.querySelector('.p1Ships');
+        const p2Ships = document.querySelector('.p2Ships');
         this.updateScreen = () => {
+          
+          
             // clear the board
             boardDiv.textContent = "";
         
             // get the newest version of the board and player turn
+            // const board = this.game.activePlayer.gameBoard.board;
             const activePlayer = this.game.getActivePlayer();
             const board = activePlayer.gameBoard.board;
 
@@ -30,6 +35,14 @@ class ScreenController {
                 cellButton.dataset.column = index
                 cellButton.dataset.idx = idx
                 cellButton.textContent = cell.getValue();
+                if(cell.getValue() == "X"){
+                  cellButton.style.backgroundColor = "red"
+                }else if (cell.getValue() == "M"){
+                  cellButton.style.backgroundColor = "blue"
+                }else if (cell.getValue() == "H"){
+                  cellButton.style.backgroundColor = "green"
+
+                }
                 // cellButton.textContent = cell.getValue() + "-" + idx;
                 // cellButton.textContent = idx;
                 boardDiv.appendChild(cellButton);

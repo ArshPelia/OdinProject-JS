@@ -100,10 +100,14 @@ class Gameboard {
         }
     }
 
-    receiveAttack(x, y){
-        if (x > this.rows || y > this.cols) {
-            console.error("Invalid Hit: Out of Bounds") // Invalid placement, out of bounds or cell already occupied
+    receiveAttack(idx){
+        const x = Math.floor((idx - 1) / 10);
+        const y = (idx - 1) % 10;
+        if (x >= this.rows || y >= this.cols) {
+            console.error("Invalid Hit: Out of Bounds");
+            return -1;
         }
+        
         let hit = this.board[x][y].strike()
         console.log("Attack at (" + x + "," + y + ") => " + hit )
     }
