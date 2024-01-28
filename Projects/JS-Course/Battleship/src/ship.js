@@ -23,4 +23,13 @@ class Ship{
     }
 }
 
-export {Ship}
+class Player {
+    constructor(name,) {
+        this.name = name;
+        this.sayName = function() {
+            console.log(`Hello, I'm ${this.name}!`);
+          };
+    }
+}
+
+export {Ship, Player}

@@ -1,12 +1,13 @@
-import { Ship } from "./ship";
+import { Ship, Player } from "./ship";
 class Gameboard {
     orientations = ['v', 'h']
-    constructor() {
+    constructor(player) {
         console.log("Creating Board")
         this.rows = 10;
         this.cols = 10;
         this.board = [];
         this.ships = [];
+        this.player = player;
 
         // Create empty board
         for (let i = 0; i < this.rows; i++) {
@@ -124,7 +125,7 @@ class Cell {
         this.y = y;
         this.ship = null;
         this.misHit = false;
-        this.value = '.'
+        this.value = 'E'
     }
 
     placeShip(ship) {
