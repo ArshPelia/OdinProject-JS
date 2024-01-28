@@ -2,6 +2,7 @@ import { Ship } from "./ship";
 class Gameboard {
     orientations = ['v', 'h']
     constructor() {
+        console.log("Creating Board")
         this.rows = 10;
         this.cols = 10;
         this.board = [];
@@ -23,24 +24,24 @@ class Gameboard {
         console.log(boardWithCellValues);
     }
 
-    populateShips(){
-        while(this.ships.length < 5){
-            var randomIndex = Math.floor(Math.random() * this.orientations.length); 
-            var randomOrient = this.orientations[randomIndex];
-            var randomX = Math.floor(Math.random() * 10);
-            var randomY = Math.floor(Math.random() * 10);  
-            var randomLen = Math.floor(Math.random() * 5) + 1;
+    populateShips() {
+        while (this.ships.length < 5) {
+            let randomIndex = Math.floor(Math.random() * this.orientations.length);
+            let randomOrient = this.orientations[randomIndex];
+            let randomX = Math.floor(Math.random() * 10);
+            let randomY = Math.floor(Math.random() * 10);
+            let randomLen = Math.floor(Math.random() * 5) + 1;
     
-            let isValid = this.validPlacement(randomLen, randomX, randomY, randomOrient)
-            if (isValid[0] === true){
+            let isValid = this.validPlacement(randomLen, randomX, randomY, randomOrient);
+            if (isValid[0] === true) {
                 let ship = new Ship(randomLen, randomX, randomY, isValid[1]);
-                
+    
                 // Mark cells as occupied by the ship
                 for (let i = 0; i < randomLen; i++) {
                     if (isValid[1] === "vertical") {
-                        this.board[randomX][randomY + i].occupy(ship);
+                        this.board[randomX][randomY + i].placeShip(ship);
                     } else {
-                        this.board[randomX + i][randomY].occupy(ship);
+                        this.board[randomX + i][randomY].placeShip(ship);
                     }
                 }
                 // Add the ship to the list of ships
@@ -48,6 +49,7 @@ class Gameboard {
             }
         }
     }
+    
     
 
     validPlacement(Len, X, Y, Orient) {
@@ -71,7 +73,10 @@ class Gameboard {
                     return [false, ""];
                 }
             }
-    
+            if (Y + Len >= this.cols) {
+                return [false, ""];
+            }
+        
             return [true, "vertical"];
         } else {
             // Check right
@@ -93,6 +98,23 @@ class Gameboard {
             return [true, "horizontal"];
         }
     }
+
+    receiveAttack(x, y){
+        if (x > this.rows || y > this.cols) {
+            console.error("Invalid Hit: Out of Bounds") // Invalid placement, out of bounds or cell already occupied
+        }
+        let hit = this.board[x][y].strike()
+        console.log("Attack at (" + x + "," + y + ") => " + hit )
+    }
+
+    allSunk(){
+        for(i in this.ships){
+            if(i.isSunk() == false){
+                return false
+            }
+        }
+        return true
+    }
     
 }
 
@@ -100,20 +122,33 @@ class Cell {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.occupiedBy = null;
+        this.ship = null;
         this.misHit = false;
+        this.value = '.'
     }
 
-    occupy(ship) {
-        this.occupiedBy = ship;
+    placeShip(ship) {
+        this.ship = ship;
+        this.value = "X"
     }
 
     isOccupied() {
-        return !!this.occupiedBy;
+        return !!this.ship;
     }
 
     getValue() {
-        return this.occupiedBy ? 'X' : '.';
+        return this.value;
+    }
+
+    strike(){
+        if(this.isOccupied()){
+            this.ship.hit()
+            this.value = "H"
+            return true
+        }else{
+            this.value = "M"
+            return false
+        }
     }
     
 }
