@@ -44,7 +44,7 @@ class ScreenController {
             // Make sure I've clicked a column and not the gaps in between
             if (!selectedIdx) return;
 
-            // this.game.playRound(selectedIdx);
+            this.game.playRound(selectedIdx);
             this.updateScreen();
         };
             boardDiv.addEventListener("click", clickHandlerBoard);

@@ -25,6 +25,7 @@ class Game {
         
         /*  This is where we would check for a winner and handle that logic,
             such as a win message. */
+            this.switchPlayerTurn();
     
       };
 }
