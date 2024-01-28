@@ -30,7 +30,7 @@ class Gameboard {
             var randomY = Math.floor(Math.random() * 10);  
             var randomLen = Math.floor(Math.random() * 5) + 1;
     
-            let isValid = validPlacement(randomLen, randomX, randomY, randomOrient)
+            let isValid = this.validPlacement(randomLen, randomX, randomY, randomOrient)
             if (isValid[0] === true){
                 let ship = new Ship(randomLen, randomX, randomY, isValid[1]);
                 
@@ -110,6 +110,11 @@ class Cell {
     isOccupied() {
         return !!this.occupiedBy;
     }
+
+    getValue() {
+        return this.occupiedBy ? 'X' : '.';
+    }
+    
 }
 
 export { Gameboard };

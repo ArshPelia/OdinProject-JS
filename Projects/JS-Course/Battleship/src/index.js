@@ -7,5 +7,7 @@ console.log("Script Started");
 const g1 = new Gameboard(); // Declare g1 using 'const', and make sure Gameboard is imported correctly
 
 g1.printToConsole();
+g1.populateShips();
+g1.printToConsole();
 
 console.log("Script Ended");

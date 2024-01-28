@@ -1,12 +1,10 @@
 class Ship{
     //init coordinates
-    hitsIncurred = 0
-    sunk = false
     constructor(length, x, y, orientation){
         //random length for ship
         // this.length = Math.random() * (5 - 1) + 1;
-        this.hitsIncurred = hitsIncurred
-        this.sunk = sunk
+        this.hitsIncurred = 0
+        this.sunk = false
         this.length = length
         this.x = x
         this.y = y 
