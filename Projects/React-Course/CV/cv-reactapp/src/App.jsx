@@ -32,7 +32,7 @@ function App() {
       </p> */}
           
       <GeneralInfo />
-      <Education />
+      {/* <Education /> */}
     </>
 
   )
