@@ -13,29 +13,35 @@ function General(){
     return (
         <>
             <div className="section" id="general">
+                <h2>General Information: </h2>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Name:</label>
+                    <label htmlFor="name">Name: </label>
                     <input
+                        autoComplete='True'
                         id='name'
                         type="text"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
                     />            
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="email">Email: </label>
                     <input
+                        autoComplete='True'
                         id='email'
                         type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                     />            
-                    <label htmlFor="phone">Phone:</label>
+                    <label htmlFor="phone">Phone: </label>
                     <input
+                        autoComplete='True'
                         id='phone'
                         type="tel"
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
                     />
                 </form>
+                <input type="Submit" />
+
             </div>
         </>
     );

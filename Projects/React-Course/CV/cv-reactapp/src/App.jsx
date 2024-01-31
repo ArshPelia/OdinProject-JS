@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import GeneralInfo from './components/General'
+import Education from './components/Education'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -31,6 +32,7 @@ function App() {
       </p> */}
           
       <GeneralInfo />
+      <Education />
     </>
 
   )
