@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 function Education(){
     const [school, setSchool] = useState('');
-    const [study, setStudy] = useState('');
+    const [program, setProgram] = useState('');
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -10,9 +10,18 @@ function Education(){
 
     return (
         <>
-            <div className="section" id="general">
+            <div className="container" id="education">
                 <h2>Education: </h2>
-                <form onSubmit={handleSubmit}>
+                <h4>School: 
+                    {school}
+                </h4>
+                <h4>Program: 
+                    {program}
+
+                </h4>
+
+
+                {/* <form onSubmit={handleSubmit}>
                     <label htmlFor="school">School: </label>
                     <input
                         autoComplete='True'
@@ -21,16 +30,16 @@ function Education(){
                         value={school}
                         onChange={(event) => setSchool(event.target.value)}
                     />            
-                    <label htmlFor="study">Study: </label>
+                    <label htmlFor="program">program: </label>
                     <input
                         autoComplete='True'
-                        id='study'
+                        id='program'
                         type="text"
-                        value={study}
-                        onChange={(event) => setStudy(event.target.value)}
+                        value={program}
+                        onChange={(event) => setProgram(event.target.value)}
                     />            
                 <input type="Submit" />
-                </form>
+                </form> */}
 
             </div>
         </>

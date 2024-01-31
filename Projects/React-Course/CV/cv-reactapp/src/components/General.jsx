@@ -12,9 +12,23 @@ function General(){
 
     return (
         <>
-            <div className="section" id="general">
+            <div className="container" id="general">
                 <h2>General Information: </h2>
-                <form onSubmit={handleSubmit}>
+                <h4>Name: 
+                    {name}
+                </h4>
+                <h4>Email: 
+                    {email}
+
+                </h4>
+                <h4>Phone: 
+                    {phone}
+
+                </h4>
+
+
+
+                {/* <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Name: </label>
                     <input
                         autoComplete='True'
@@ -41,7 +55,7 @@ function General(){
                     />
                 <input type="Submit" />
 
-                </form>
+                </form> */}
 
             </div>
         </>
