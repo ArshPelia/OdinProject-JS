@@ -29,8 +29,8 @@ function Education(){
                         value={study}
                         onChange={(event) => setStudy(event.target.value)}
                     />            
-                </form>
                 <input type="Submit" />
+                </form>
 
             </div>
         </>

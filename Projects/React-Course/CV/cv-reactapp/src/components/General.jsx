@@ -39,8 +39,9 @@ function General(){
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
                     />
-                </form>
                 <input type="Submit" />
+
+                </form>
 
             </div>
         </>
