@@ -1,6 +1,5 @@
 // Router.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "../App";
 import ErrorPage from "./ErrorPage";
 import Cart from "./Cart";
 import Home from "./Home";
