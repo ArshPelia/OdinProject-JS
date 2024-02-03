@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Product from "./Product";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -29,6 +30,20 @@ const Home = () => {
   return (
     <div id="content">
       <h1>Home Page</h1>
+      <div className='container recipe__container'>
+        {products.length > 0 ? (
+          products.map(product => (
+            <Product
+              key={product.id}
+              title={product.title} 
+              price={product.price}
+              image={product.image}
+            />
+          ))
+        ) : (
+          <p>No products available</p>
+        )}
+      </div>
     </div>
   );
 };

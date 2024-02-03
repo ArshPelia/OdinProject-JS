@@ -1,0 +1,156 @@
+/* Update your product.css styles */
+.product__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 5rem; /* Add top margin to match other sections */
+    padding: 2rem; /* Add padding for consistency */
+  }
+  
+  .product__item {
+    background: var(--color-bg-variant);
+    border-radius: 2rem;
+    border: 1px solid transparent;
+    transition: var(--transition);
+    padding: 1.3rem;
+    text-align: center; /* Center-align the content */
+  }
+  
+  .product__item:hover {
+    border-color: var(--color-primary-variant);
+    background: transparent;
+  }
+  
+  .product__item-image {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    height: 190px;
+  }
+  
+  .product__item h3 {
+    margin: 1.2rem 0 0.5rem; /* Adjust margin for better spacing */
+    font-size: 1.5rem; /* Increase font size for better readability */
+  }
+  
+  .product__item h4 {
+    margin: 0.1rem 0 1rem;
+    color: var(--color-light);
+    font-size: 1rem; /* Increase font size for better readability */
+  }
+  
+  .product__item-cta {
+    display: flex;
+    flex-direction: column; /* Change to column layout for better alignment */
+    gap: 1rem;
+  }
+  
+  /* Styles for the "View Ingredients" and "View Directions" buttons */
+  .product__item-cta .btn {
+    width: 100%; /* Make the buttons take full width */
+  }
+  
+  /* -----------------------MEDIA QUERIES (MEDIUM DEVICES) ---------------- */
+  @media screen and (max-width: 1024px) {
+      .product__container{
+          grid-template-columns: 1fr 1fr;
+          gap: 1.2rem;
+  
+      }
+      .product__item-image{
+          height: 185px;
+      }
+  }
+  
+  /* -----------------------MEDIA QUERIES (SMALL DEVICES) ---------------- */
+  @media screen and (max-width: 600px) {
+      .product__container{
+          grid-template-columns: 1fr;
+          gap: 1rem;
+  
+      }
+  
+  }
+  
+  
+  /* Modal Styles */
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    z-index: 9999;
+    color: white; /* Update the text color */
+    
+  }
+  
+  .modal-content {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+    background-blend-mode: multiply,multiply;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 2rem; /* Increase the border radius to match other elements */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 5px; */
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-primary); /* Update the title color */
+  }
+  
+  .modal-close {
+    cursor: pointer;
+    font-size: 20px;
+    color: #999999;
+    transition: color 0.3s;
+  }
+  
+  .modal-lang { 
+    color: var(--color-light);
+    margin-bottom: 15px;
+  }
+  
+  .modal-close:hover {
+    color: #333;
+  }
+  
+  .modal-body {
+    margin-bottom: 20px;
+  }
+  
+  .modal-body p {
+    margin-bottom: 10px;
+  }
+  
+  .modal-footer {
+    text-align: right;
+  }
+  
+  .modal-footer button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 2rem; /* Increase the border radius to match other elements */
+    background-color: var(--color-primary-variant); /* Use the same background color as other elements */
+    color: var(--color-white); /* Use the same text color as other elements */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .modal-footer button:hover {
+    background-color: #0056b3;
+  }
+  
