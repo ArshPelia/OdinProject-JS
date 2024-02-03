@@ -1,32 +1,36 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 const Home = () => {
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetch('https://fakestoreapi.com/products?limit=5', {mode: "cors"})
-        .then((response) => {
-            if (response.status >= 400) {
-                throw new Error("server error");
-              }
-              return response.json();
-            })
-        .then((response) => setProducts(response.json))
-        .catch((error) => setError(error))
-        .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    console.log("Fetching products...");
+    fetch('https://fakestoreapi.com/products?limit=5', { mode: "cors" })
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new Error("server error");
+        }
+        return response.json();
+      })
+      .then((data) => setProducts(data))
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, []); // Empty dependency array to ensure the effect runs only once on mount
 
-    if (error) return <p>A network error was encountered</p>;
-    if (loading) return <p>Loading...</p>;
+  useEffect(() => {
+    console.log("Products state updated:", products);
+  }, [products]); // Log only when products state changes
 
+  if (error) return <p>A network error was encountered</p>;
+  if (loading) return <p>Loading...</p>;
 
-    return(
-        <div id="content">
-            <h1>Home Page</h1>
-        </div>
-    )
-}
+  return (
+    <div id="content">
+      <h1>Home Page</h1>
+    </div>
+  );
+};
 
-export default Home
+export default Home;

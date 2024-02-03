@@ -5,8 +5,11 @@ const Nav = ({ itemsInCart }) => {
   return (
     <nav style={navStyle}>
       <ul style={ulStyle}>
+      <li style={liStyle}>
+          <Link to="/" style={linkStyle}>Home</Link>
+        </li>
         <li style={liStyle}>
-          <Link to="cart" style={linkStyle}>Cart page</Link>
+          <Link to="cart" style={linkStyle}>Cart</Link>
         </li>
         <li style={liStyle}>
           Items in Cart: {itemsInCart}
