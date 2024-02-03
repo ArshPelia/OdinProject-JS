@@ -1,6 +1,9 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "./Context/CartContext";
 
-const Nav = ({ itemsInCart }) => {
+const Nav = () => {
+  const { cartItems } = useCart();
 
   return (
     <nav style={navStyle}>
@@ -12,7 +15,7 @@ const Nav = ({ itemsInCart }) => {
           <Link to="cart" style={linkStyle}>Cart</Link>
         </li>
         <li style={liStyle}>
-          Items in Cart: {itemsInCart}
+          Items in Cart: {cartItems.length}
         </li>
       </ul>
     </nav>
