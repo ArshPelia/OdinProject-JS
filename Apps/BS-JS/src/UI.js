@@ -10,16 +10,27 @@ class ScreenController {
         this.inactiveBoardDiv = boardDiv2;
 
         this.updateScreen = () => {
-            this.updateBoard(boardDiv1, this.game.b1);
-            this.updateBoard(boardDiv2, this.game.b2);
-
             const activePlayer = this.game.activeBoard.player;
             this.playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
-        };
-
+        
+            // Update active and inactive board divs
+            this.activeBoardDiv = activePlayer === this.game.b1.player ? boardDiv1 : boardDiv2;
+            this.inactiveBoardDiv = this.activeBoardDiv === boardDiv1 ? boardDiv2 : boardDiv1;
+        
+            // Add event listener after updating the boards
+            this.activeBoardDiv.addEventListener("click", clickHandlerBoard);
+            this.inactiveBoardDiv.removeEventListener("click", clickHandlerBoard);
+        
+            // Refresh the display of both boards
+            this.updateBoard(this.activeBoardDiv, this.game.activeBoard);
+            this.updateBoard(this.inactiveBoardDiv, this.game.inactiveBoard);
+        }
+        
         const clickHandlerBoard = (e) => {
+            console.log('click; active board: ' + this.game.activeBoard.player.name)
             const selectedIdx = e.target.dataset.idx;
             if (!selectedIdx) return;
+            // console.log('click; curr target: ' + e.currentTarget)
 
             if (e.currentTarget === this.activeBoardDiv) {
                 this.game.playRound(selectedIdx);
@@ -27,12 +38,8 @@ class ScreenController {
             }
         };
 
-        boardDiv1.addEventListener("click", clickHandlerBoard);
-        boardDiv2.addEventListener("click", clickHandlerBoard);
-
         this.updateScreen();
     }
-
     updateBoard(boardDiv, gameboard) {
         boardDiv.textContent = "";
 
