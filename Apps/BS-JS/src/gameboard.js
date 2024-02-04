@@ -27,7 +27,7 @@ class Gameboard {
                 this.board[i].push(new Cell()); // Use the 'new' keyword to instantiate Cell
             }
         }
-        this.populateShips()
+        this.populateShips(5)
     }
 
     printToConsole() {
@@ -35,10 +35,14 @@ class Gameboard {
         console.log(boardWithCellValues);
     }
 
-    populateShips() {
-        const shipLengths = [5, 4, 3, 3, 2];  // Adjust lengths as needed
-        for (const len of shipLengths) {
+    populateShips(minShips) {
+        const shipLengths = [6, 5, 4, 3];  // Adjust lengths as needed
+    
+        // Keep populating ships until reaching the minimum number
+        while (this.ships.length < minShips) {
+            const len = shipLengths[Math.floor(Math.random() * shipLengths.length)];
             let isValid = false;
+    
             while (!isValid) {
                 const randomX = Math.floor(Math.random() * this.rows);
                 const randomY = Math.floor(Math.random() * this.cols);
@@ -48,18 +52,21 @@ class Gameboard {
                 if (isValid[0]) {
                     const ship = new Ship(len, randomX, randomY, isValid[1]);
     
-                    for (let i = 0; i < len; i++) {
+                    for (let j = 0; j < len; j++) {
                         if (isValid[1] === "vertical") {
-                            this.board[randomX][randomY + i].placeShip(ship);
+                            this.board[randomX][randomY + j].placeShip(ship);
                         } else {
-                            this.board[randomX + i][randomY].placeShip(ship);
+                            this.board[randomX + j][randomY].placeShip(ship);
                         }
                     }
                     this.ships.push(ship);
                 }
             }
         }
+
     }
+    
+    
 
     validPlacement(Len, X, Y, Orient) {
         if (X + Len > this.rows || this.board[X][Y].isOccupied()) {
