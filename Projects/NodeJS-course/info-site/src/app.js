@@ -1,22 +1,26 @@
-const http = require('node:http');
-const fs = require('fs');
-const hostname = '127.0.0.1';
+const http = require("http");
+const fs = require('fs').promises;
+const host = 'localhost'; // Corrected
 const port = 3000;
 
+let indexFile;
 
-fs.readFile('../index.html', function (err, html) {
+const requestListener = function (req, res) {
+    res.setHeader("Content-Type", "text/html");
+    res.writeHead(200);
+    res.end(indexFile);
+};
 
-  if (err) throw err;    
+const server = http.createServer(requestListener);
 
-  http.createServer(function(request, response) {  
-    console.log('creating server')
-
-      response.writeHeader(200, {"Content-Type": "text/html"});  
-      response.write(html);  
-      response.end();  
-  }).listen(port);
-});
-
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
+fs.readFile("../index.html") // Corrected path
+    .then(contents => {
+        indexFile = contents;
+        server.listen(port, host, () => {
+            console.log(`Server is running on http://${host}:${port}`);
+        });
+    })
+    .catch(err => {
+        console.error(`Could not read index.html file: ${err}`);
+        process.exit(1);
+    });
