@@ -1,26 +1,41 @@
 const http = require("http");
 const fs = require('fs').promises;
-const host = 'localhost'; // Corrected
+const path = require('path');
+
+const host = 'localhost';
 const port = 8080;
 
-let indexFile;
+const server = http.createServer((req, res) => {
+    let filePath;
 
-const requestListener = function (req, res) {
-    res.setHeader("Content-Type", "text/html");
-    res.writeHead(200);
-    res.end(indexFile);
-};
+    // Parse the URL path
+    const urlPath = req.url;
 
-const server = http.createServer(requestListener);
+    // Set the file path based on the URL path
+    if (urlPath === '/') {
+        filePath = '../index.html';
+    } else if (urlPath === '/about') {
+        filePath = '../about.html';
+    } else if (urlPath === '/contact-me') {
+        filePath = '../contact-me.html';
+    } else {
+        filePath = '../404.html';
+    }
 
-fs.readFile("../index.html") // Corrected path
-    .then(contents => {
-        indexFile = contents;
-        server.listen(port, host, () => {
-            console.log(`Server is running on http://${host}:${port}`);
+    // Read the HTML file and serve it
+    fs.readFile(path.join(__dirname, filePath))
+        .then(contents => {
+            res.setHeader("Content-Type", "text/html");
+            res.writeHead(200);
+            res.end(contents);
+        })
+        .catch(err => {
+            console.error(`Could not read file: ${err}`);
+            res.writeHead(500);
+            res.end('Server Error');
         });
-    })
-    .catch(err => {
-        console.error(`Could not read index.html file: ${err}`);
-        process.exit(1);
-    });
+});
+
+server.listen(port, host, () => {
+    console.log(`Server is running on http://${host}:${port}`);
+});
