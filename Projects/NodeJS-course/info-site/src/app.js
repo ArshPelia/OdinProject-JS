@@ -1,7 +1,7 @@
 const http = require("http");
 const fs = require('fs').promises;
 const host = 'localhost'; // Corrected
-const port = 3000;
+const port = 8080;
 
 let indexFile;
 
