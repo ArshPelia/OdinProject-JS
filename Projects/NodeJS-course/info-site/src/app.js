@@ -1,9 +1,13 @@
+require('dotenv').config();
+
 const http = require("http");
 const fs = require('fs').promises;
 const path = require('path');
 
 const host = 'localhost';
-const port = 8080;
+const port = 8080;const port = process.env.PORT;
+const dbUrl = process.env.DB_URL;
+const apiKey = process.env.API_KEY;
 
 const server = http.createServer((req, res) => {
     let filePath;
