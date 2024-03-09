@@ -28,6 +28,7 @@ router.post('/new', function(req, res, next) {
       user: author,
       added: new Date()
     });
+    msgs.push(newMessage);
     res.redirect('/'); // Redirect to home page after adding the new message
   } else {
     res.status(400).send('Invalid request');

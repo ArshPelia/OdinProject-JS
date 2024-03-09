@@ -3,6 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+    // Add a link to the /new route
+  a(href='/new') Add New Message
   if messages && messages.length > 0
     ul 
       each message in messages
