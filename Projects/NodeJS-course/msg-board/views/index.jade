@@ -3,3 +3,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if messages && messages.length > 0
+    ul 
+      each message in messages
+        li= message.text + ': ' + message.user + ' - ' + message.added
+  else
+    p No messages available
