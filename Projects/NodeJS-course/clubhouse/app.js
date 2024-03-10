@@ -47,6 +47,9 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+// Middleware to parse incoming requests
+app.use(express.urlencoded({ extended: true }));
+
 //link stylesheet
 app.use('/public', express.static('public'));
 

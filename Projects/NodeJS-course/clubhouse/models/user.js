@@ -1,16 +1,36 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-var UserSchema = new mongoose.Schema({
-    email: { type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true },
-    first_name: { type: String, required: true, maxLength: 100 },
-    last_name: { type: String, required: true, maxLength: 100 },
-    Status: [{ type: String, enum: ['Member', 'Non-Member'] }], // corrected the Status field
+const UserSchema = new mongoose.Schema({
+    email: { 
+        type: String, 
+        lowercase: true, 
+        required: [true, "Email can't be blank"], 
+        match: [/\S+@\S+\.\S+/, 'Invalid email address'], 
+        index: true 
+    },
+    first_name: { 
+        type: String, 
+        required: true, 
+        maxLength: 100 
+    },
+    last_name: { 
+        type: String, 
+        required: true, 
+        maxLength: 100 
+    },
+    status: { 
+        type: String, 
+        enum: ['Member', 'Non-Member'] 
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
 
 // Virtual for User's full name
-UserSchema.virtual("full_name").get(function () {
-    // To avoid errors in cases where a User does not have either a last name or first name
-    // We want to make sure we handle the exception by returning an empty string for that case
+UserSchema.virtual("fullName").get(function () {
     let fullname = "";
     if (this.first_name && this.last_name) {
         fullname = `${this.last_name}, ${this.first_name}`;
@@ -20,8 +40,22 @@ UserSchema.virtual("full_name").get(function () {
   
 // Virtual for User's URL
 UserSchema.virtual("url").get(function () {
-    // We don't use an arrow function as we'll need the 'this' object
     return `/clubhouse/User/${this._id}`;
 });
 
-mongoose.model('User', UserSchema);
+// Hash the password before saving
+UserSchema.pre('save', async function(next) {
+    try {
+        // Generate a salt
+        const salt = await bcrypt.genSalt(10);
+        // Hash the password with the salt
+        const hashedPassword = await bcrypt.hash(this.password, salt);
+        // Replace the plain text password with the hashed password
+        this.password = hashedPassword;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+module.exports = mongoose.model('User', UserSchema);
