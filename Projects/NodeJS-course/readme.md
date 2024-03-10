@@ -10,3 +10,5 @@ https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skelet
 },
 npm install
 npm run devstart
+
+https://stackoverflow.com/questions/18629327/adding-css-file-to-ejs
