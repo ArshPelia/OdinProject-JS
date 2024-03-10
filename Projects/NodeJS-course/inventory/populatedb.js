@@ -25,54 +25,38 @@ console.log(
   
   const categories = [];
   const items = [];
-  
-  function categoryCreate(name, description, picture, cb) {
-    categorydetail = { name, description, picture };
-  
+  function categoryCreate(name, description, picture) {
+    const categorydetail = { name, description, picture };
     const category = new Category(categorydetail);
   
-    category.save(function (err) {
-      if (err) {
-        cb(err, null);
-        return;
-      }
-      console.log("New Category: " + category);
-      categories.push(category);
-      cb(null, category);
-    });
-  }
+    return category.save()
+        .then(savedCategory => {
+            console.log("New Category: " + savedCategory);
+            categories.push(savedCategory);
+            return savedCategory;
+        })
+        .catch(err => {
+            console.error("Error creating category: ", err);
+            throw err; // Propagate the error
+        });
+}
+
+function itemCreate(name, description, category, price, number_in_stock, picture, size) {
+    const item = new Item({ name, description, category, price, number_in_stock, picture, size });
   
-  function itemCreate(
-    name,
-    description,
-    category,
-    price,
-    number_in_stock,
-    picture,
-    size,
-    cb
-  ) {
-    const item = new Item({
-      name,
-      description,
-      category,
-      price,
-      number_in_stock,
-      picture,
-      size,
-    });
-  
-    item.save(function (err) {
-      if (err) {
-        cb(err, null);
-        return;
-      }
-      console.log("New Item: " + item);
-      items.push(item);
-      cb(null, item);
-    });
-  }
-  
+    return item.save()
+        .then(savedItem => {
+            console.log("New Item: " + savedItem);
+            items.push(savedItem);
+            return savedItem;
+        })
+        .catch(err => {
+            console.error("Error creating item: ", err);
+            throw err; // Propagate the error
+        });
+}
+
+
   function createCategories(cb) {
     async.series(
       [
@@ -84,8 +68,8 @@ console.log(
               filename: "jersey.png",
               originalname: "jersey",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           categoryCreate(
@@ -95,8 +79,8 @@ console.log(
               filename: "t-shirt.jpg",
               originalname: "t-shirt",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           categoryCreate(
@@ -106,8 +90,8 @@ console.log(
               filename: "hat.jpg",
               originalname: "hat",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           categoryCreate(
@@ -117,8 +101,8 @@ console.log(
               filename: "footwear.png",
               originalname: "footwear",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           categoryCreate(
@@ -128,8 +112,8 @@ console.log(
               filename: "accessory.jpg",
               originalname: "accessory",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           categoryCreate(
@@ -139,11 +123,11 @@ console.log(
               filename: "collectible.webp",
               originalname: "collectible",
             },
-            callback
-          );
+           
+          ).then(() => callback());
         },
       ],
-      // optional callback
+      // optional
       cb
     );
   }
@@ -163,8 +147,8 @@ console.log(
               originalname: "giannis jersey",
             },
             "M  L  XL  2XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -178,8 +162,8 @@ console.log(
               originalname: "zach lavine jersey",
             },
             "S  M  L  XL  2XL  3XL  4XL  5XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -193,8 +177,8 @@ console.log(
               originalname: "kevin durant jersey",
             },
             "S  M  L  XL  2XL  3XL  4XL  5XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -208,8 +192,8 @@ console.log(
               originalname: "steph curry t-shirt",
             },
             "XS  S  M  L  XL  2XL  3XL  4XL  5XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -223,8 +207,8 @@ console.log(
               originalname: "lakers t-shirt",
             },
             "XS  S  M  L  XL  2XL  3XL  4XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -238,8 +222,8 @@ console.log(
               originalname: "lakers t-shirt",
             },
             "6 3/4  6 7/8  7  7 1/8  7 1/4  7 3/8  7 1/2  7 5/8  7 3/4  7 7/8  8  8 1/8  8 1/4",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -253,8 +237,8 @@ console.log(
               originalname: "lakers hat",
             },
             "6 7/8  7  7 1/8  7 1/4  7 3/8  7 1/2  7 5/8  7 3/4  7 7/8  8",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -268,8 +252,8 @@ console.log(
               originalname: "lakers sandals",
             },
             "7  8  9  10  11  12  13  14/15",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -283,8 +267,8 @@ console.log(
               originalname: "lakers moccasins",
             },
             "S  M  L  XL",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -298,8 +282,8 @@ console.log(
               originalname: "lakers bottle",
             },
             undefined,
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -313,8 +297,8 @@ console.log(
               originalname: "lakers socks",
             },
             "L",
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -328,8 +312,8 @@ console.log(
               originalname: "lebron action figure",
             },
             undefined,
-            callback
-          );
+           
+          ).then(() => callback());
         },
         function (callback) {
           itemCreate(
@@ -343,18 +327,18 @@ console.log(
               originalname: "shaq autographed jersey",
             },
             undefined,
-            callback
-          );
+           
+          ).then(() => callback());
         },
       ],
-      // optional callback
+      // optional
       cb
     );
   }
   
   async.series(
     [createCategories, createItems],
-    // Optional callback
+    // Optional
     function (err, results) {
       if (err) {
         console.log("FINAL ERR: " + err);
