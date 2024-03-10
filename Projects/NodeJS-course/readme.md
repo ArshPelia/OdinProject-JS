@@ -5,9 +5,8 @@ npm start
 
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
 "scripts": {
-"start": "node ./bin/www",
 "devstart": "nodemon ./bin/www",
-"serverstart": "DEBUG=express-locallibrary-tutorial:\* npm run devstart"
+"serverstart": "DEBUG=express-locallibrary-tutorial: npm run devstart"
 },
-
-    npm run devstart
+npm install
+npm run devstart
