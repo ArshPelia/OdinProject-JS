@@ -9,7 +9,7 @@ const { body, validationResult} = require("express-validator");
 //default routing to the messageboard
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of messages, message instances, creators and genre counts (in parallel)
-  console.log('Curr user: '+ res.locals.currentUser)
+  // console.log('Curr user: '+ res.locals.currentUser)
   
   const [
     numMessages,
