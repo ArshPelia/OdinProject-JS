@@ -2,10 +2,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Clubhouse</title>
-  <link rel="stylesheet" href="./styles/signup.css">
+  <link rel="stylesheet" href="../public/stylesheets/style.css">
 
 </head>
 <body>
-  <h1>Welcome to Clubhouse</h1>
+  <% if (user) {%>
+    <h1>WELCOME BACK <%= user.email %></h1>
+    <a href="/log-out">LOG OUT</a>
+  <% } else { %>
+    <h1>please log in</h1>
+    <form action="/log-in" method="POST">
+      <label for="email">email</label>
+      <input name="email" placeholder="email" type="text" />
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <button>Log In</button>
+    </form>
+  <%}%>
 </body>
 </html>
