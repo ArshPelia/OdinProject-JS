@@ -59,6 +59,16 @@ app.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });
 
+app.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
+
 passport.use(
   new LocalStrategy(
     { usernameField: 'email', passwordField: 'password' },
@@ -70,8 +80,10 @@ passport.use(
           console.log("Incorrect email")
           return done(null, false, { message: "Incorrect email" });
         };
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
+        // const match = await bcrypt.compare(password, user.password);
+        // console.log('match: ' + match)
+        // if (!match) {
+          if (user.password !== password) {
           // passwords do not match!
           console.log("Incorrect password: " + password)
           console.log("Correct password: "+ user.password)
