@@ -5,9 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //setup routers
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signUpRouter = require('./routes/signup');
+const messageBoardRouter = require("./routes/messageboard"); //Import routes 
 
 // Middleware for authentication
 const session = require("express-session");
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signUpRouter);
+app.use("/messageBoard", messageBoardRouter)
 
 // Middleware for authentication
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
@@ -115,7 +117,7 @@ passport.deserializeUser(async (id, done) => {
 app.post(
   "/log-in",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/messageBoard",
     failureRedirect: "/"
   })
 );
