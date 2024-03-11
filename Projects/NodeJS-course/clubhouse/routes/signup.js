@@ -40,6 +40,7 @@ router.post('/', validateSignUp, async (req, res) => {
 
   // Hash the password using bcrypt
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  console.log('Hashed password:', hashedPassword); // Add this line for logging
 
   // Create a new user object with sanitized and hashed data
   const user = new User({
@@ -49,19 +50,18 @@ router.post('/', validateSignUp, async (req, res) => {
     status: 'Non-Member',
     password: hashedPassword,
   });
-  console.log(user)
 
   // Save the user to the database
   try {
     const savedUser = await user.save();
     console.log('User saved:', savedUser);
-    // res.status(201).json(savedUser);
+    // Store the user information in the session
+    req.session.currentUser = savedUser;
     res.redirect('/messageboard');
   } catch (err) {
     console.error('Error saving user:', err);
     res.status(500).json({ error: 'An error occurred while saving the user' });
   }
-  
 });
 
 module.exports = router;

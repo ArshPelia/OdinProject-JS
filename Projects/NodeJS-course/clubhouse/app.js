@@ -47,15 +47,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware for authentication
+app.use(passport.initialize());
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(express.urlencoded({ extended: false }));
+
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signUpRouter);
-app.use("/messageBoard", messageBoardRouter)
+app.use("/messageboard", messageBoardRouter)
 
-// Middleware for authentication
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
+
+//init local var to track
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 //open index page by default
 app.get("/", (req, res) => {
@@ -72,35 +79,45 @@ app.get("/log-out", (req, res, next) => {
 });
 
 
+// function comparePW(password, hash, done) {
+//   // bcrypt.compare(password, hash, function(err, result) {
+//   //   if (err) { 
+//   //     return done(err); // Pass error to done callback
+//   //   }
+//   //   done(null, result); // Pass result to done callback
+//   // });
+//   if(password == hash){
+//     return true 
+//   }
+//   return false 
+// }
+
+
 passport.use(
   new LocalStrategy(
     { usernameField: 'email', passwordField: 'password' },
     async (email, password, done) => {
       try {
-        console.log('authenticating...')
+        console.log('authenticating...');
         const user = await User.findOne({ email: email });
         if (!user) {
-          console.log("Incorrect email")
+          console.log("Incorrect email");
           return done(null, false, { message: "Incorrect email" });
-        };
-        // const match = await bcrypt.compare(password, user.password);
-        // console.log('match: ' + match)
-        // if (!match) {
-          if (user.password !== password) {
-          // passwords do not match!
-          console.log("Incorrect password: " + password)
-          console.log("Correct password: "+ user.password)
-
-          return done(null, false, { message: "Incorrect password" })
         }
-
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+          console.log("Incorrect password: "+ password);
+          console.log("Correct password: "+ user.password);
+          return done(null, false, { message: "Incorrect password" });
+        }
         return done(null, user);
       } catch(err) {
         return done(err);
-      };
+      }
     }
   )
 );
+
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -117,8 +134,8 @@ passport.deserializeUser(async (id, done) => {
 app.post(
   "/log-in",
   passport.authenticate("local", {
-    successRedirect: "/messageBoard",
-    failureRedirect: "/"
+    successRedirect: "/messageboard",
+    failureRedirect: "/messageboard"
   })
 );
 

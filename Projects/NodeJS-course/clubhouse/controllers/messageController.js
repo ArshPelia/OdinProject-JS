@@ -3,8 +3,11 @@ const Message = require("../models/message");
 
 const asyncHandler = require("express-async-handler");
 
+//default routing to the messageboard
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of messages, message instances, creators and genre counts (in parallel)
+  console.log('Curr user: '+ res.locals.currentUser)
+  
   const [
     numMessages,
     // numMessageInstances,
