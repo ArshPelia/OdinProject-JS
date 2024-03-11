@@ -55,6 +55,7 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+//open index page by default
 app.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });

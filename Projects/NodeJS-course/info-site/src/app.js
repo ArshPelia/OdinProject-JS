@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const host = 'localhost';
-const port = 8080;const port = process.env.PORT;
+const port = 8080;
 const dbUrl = process.env.DB_URL;
 const apiKey = process.env.API_KEY;
 
