@@ -9,23 +9,17 @@ exports.index = asyncHandler(async (req, res, next) => {
     numMessages,
     // numMessageInstances,
     // numAvailableMessageInstances,
-    // numAuthors,
-    // numGenres,
   ] = await Promise.all([
     Message.countDocuments({}).exec(),
     // MessageInstance.countDocuments({}).exec(),
     // MessageInstance.countDocuments({ status: "Available" }).exec(),
-    // Author.countDocuments({}).exec(),
-    // Genre.countDocuments({}).exec(),
   ]);
 
-  res.render("index", {
-    title: "Clbhouse",
+  res.render("board", {
+    title: "Home",
     message_count: numMessages,
     // message_instance_count: numMessageInstances,
     // message_instance_available_count: numAvailableMessageInstances,
-    // author_count: numAuthors,
-    // genre_count: numGenres,
   });
 });
 

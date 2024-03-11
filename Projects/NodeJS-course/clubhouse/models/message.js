@@ -7,4 +7,4 @@ const MessageSchema = new mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Reference to the User who created the message
 });
 
-mongoose.model('Message', MessageSchema);
+module.exports = mongoose.model('Message', MessageSchema);
