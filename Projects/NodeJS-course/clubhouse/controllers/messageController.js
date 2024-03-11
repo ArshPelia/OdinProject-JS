@@ -4,20 +4,26 @@ const Message = require("../models/message");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  // Get details of messages, message instances, authors and genre counts (in parallel)
+  // Get details of messages, message instances, creators and genre counts (in parallel)
   const [
     numMessages,
     // numMessageInstances,
     // numAvailableMessageInstances,
-  ] = await Promise.all([
-    Message.countDocuments({}).exec(),
-    // MessageInstance.countDocuments({}).exec(),
-    // MessageInstance.countDocuments({ status: "Available" }).exec(),
-  ]);
+    ] = await Promise.all([
+      Message.countDocuments({}).exec(),
+      // MessageInstance.countDocuments({}).exec(),
+      // MessageInstance.countDocuments({ status: "Available" }).exec(),
+    ]);
+
+  const allMessages = await Message.find({}, "title creator")
+    .sort({ title: 1 })
+    .populate("creator")
+    .exec();
 
   res.render("board", {
     title: "Home",
     message_count: numMessages,
+    message_list: allMessages 
     // message_instance_count: numMessageInstances,
     // message_instance_available_count: numAvailableMessageInstances,
   });
@@ -26,7 +32,13 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 // Display list of all messages.
 exports.message_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Message list");
+  res.send(`NOT IMPLEMENTED: All Messages List`);
+  // const allMessages = await Message.find({}, "title creator")
+  // .sort({ title: 1 })
+  // .populate("creator")
+  // .exec();
+
+  // res.render("message_list", { title: "Message List", message_list: allMessages });
 });
 
 // Display detail page for a specific message.

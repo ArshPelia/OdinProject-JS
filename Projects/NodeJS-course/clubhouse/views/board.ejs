@@ -3,12 +3,19 @@
 <div id="container">
     <h1><%- title %></h1>
     <p>Welcome to <em>Clubhouse</em>, a very basic Express website developed as a tutorial example on the Mozilla Developer Network.</p>
-
-    <h1>Dynamic content</h1>
-
-    <p>The Clubhouse has the following record counts:</p>
-
     <ul>
-        <li><strong>Messages:</strong> <%= message_count %></li>
+        <li><strong>Total Messages:</strong> <%= message_count %></li>
     </ul>
+    <% if (message_list.length > 0) { %>
+        <ul>
+            <% message_list.forEach(message => { %>
+                <li>
+                    <a href="<%= message.url %>"><%= message.title %></a>
+                    (<%= message.creator.first_name %>)
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>There are no messages.</p>
+    <% } %>
 </div>
