@@ -9,10 +9,12 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+require('dotenv').config()
 // Set up mongoose connection
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://arshpelia1:<AGVARp2qdueKu2VN>@cluster0.eldknbb.mongodb.net/local_library?retryWrites=true&w=majority&appName=Clust";
+const mongoDB = process.env.mongoDB;
 
 main().catch((err) => console.log(err));
 async function main() {
