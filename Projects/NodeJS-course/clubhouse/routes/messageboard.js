@@ -30,7 +30,7 @@ router.post("/message/:id/update", message_controller.message_update_post);
 // GET request for one Message.
 router.get("/message/:id", message_controller.message_detail);
 
-// GET request for list of all Message items.
-router.get("/messages", message_controller.message_list);
+// // GET request for list of all Message items.
+// router.get("/messages", message_controller.message_list);
 
 module.exports = router;

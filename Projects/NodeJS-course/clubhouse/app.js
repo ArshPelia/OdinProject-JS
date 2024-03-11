@@ -50,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware for authentication
 app.use(passport.initialize());
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 // app.use('/', indexRouter);
@@ -61,6 +62,7 @@ app.use("/messageboard", messageBoardRouter)
 //init local var to track
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  console.log('Curr User Savesd')
   next();
 });
 
@@ -120,7 +122,7 @@ passport.use(
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 passport.deserializeUser(async (id, done) => {
   try {
